@@ -1,0 +1,31 @@
+Game list:
+Protest Carrot
+Kingdom Rush
+Plants vs. Zombies
+Bloons Tower Defense
+
+
+Game Mechanics
+1. Game Objectives
+Protect Carrots: Each level has a carrot as the core target. Enemies will move along a fixed path, trying to approach and attack the carrot. Players need to place defense towers next to the path to eliminate enemies. If all enemies are eliminated and the carrot is not damaged, the level is passed; if the carrot is attacked to a certain extent by the enemy, the game fails.
+2. Defense Tower System
+Various Types: There are different types of defense towers, such as:
+Single Attack Tower: Causes high damage to a single enemy.
+Range Attack Tower: Causes damage to enemies within a certain range.
+Deceleration Tower: Reduces the enemy's movement speed.
+Special Function Tower: Such as stun, poison damage, etc.
+Upgrade System: Defense towers can be upgraded with gold coins, and the attack power, range or special abilities will be enhanced after the upgrade.
+3. Level Mechanics
+Attack Method: Enemies will appear in waves, and each wave may have different types or numbers of enemies.
+Path: Enemies will move along a specific path, and players need to build defense towers at strategic locations along the way.
+Obstacles: There are some obstacles on the map that need to be destroyed before the tower can be built. Some obstacles will also drop gold coins or hidden props.
+4. Resource Management
+Gold coins: Building and upgrading defense towers requires gold coins, which can be obtained by eliminating enemies or destroying obstacles.
+Props: Some levels provide props (such as bombs, deceleration traps) to assist players.
+5. Enemy Types
+Different types of enemies require targeted defense tower strategies to deal with.
+6. Level Design
+The game is divided into multiple levels and theme scenes (such as deserts, ice and snow, forests, etc.), each with unique terrain and challenges.
+As the levels advance, the enemies will become stronger and stronger, and players need to use strategies flexibly.
+7. Strategy and Challenges
+Players need to design the best tower defense layout according to the characteristics and paths of the enemies, allocate resources reasonably, and choose defense towers to upgrade first.
