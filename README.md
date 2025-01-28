@@ -15,7 +15,7 @@ Add a group photo here!
 
 - Group member 1, yangyang, df24465@bristol.ac.uk, role
 - Group member 2, XingYang, zj24404@bristol.ac.uk, role
-- Group member 3, name, email, role
+- Group member 3, Yiqing Zhou, lr24125@bristol.ac.uk, role
 - Group member 4, name, email, role
 - Group member 5, name, email, role
 - Group member 5, name, email, role
