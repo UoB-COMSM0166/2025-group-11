@@ -1,0 +1,91 @@
+stakeholders:
+players：
+Fans of tower defense games
+Casual players, no complex operation requirements
+Commuters with lots of fragmented time
+
+developers：
+coders
+UI designer, artists
+music designer, sound designers
+
+
+1. Gameplay Mechanics
+As a player, I want to place turrets on the grid so that I can develop defensive strategies.
+
+Players can click or drag turrets onto valid placement grids.
+Once placed, turrets automatically attack enemies within range.
+Players cannot place turrets on obstacles or restricted areas.
+After placing a turret, the UI displays the current gold expenditure and remaining resources.
+
+As a player, I want different types of turrets with unique abilities so that I can choose the best defense strategy.
+
+The game offers at least three different turret types (e.g., single-target attack, area-of-effect attack, slow effect turret).
+Different turrets have varying effects on enemies, such as the slow turret reducing enemy movement speed.
+Players can view turret descriptions to help select the optimal defensive strategy.
+
+As a player, I want enemies to follow a predetermined path so that I can predict their movement trajectory.
+
+Enemies move along a fixed path on the map and do not deviate.
+Enemy movement speed can change due to special effects (e.g., slow turrets).
+The path is clearly visible at the beginning of the level, allowing players to plan their strategy in advance.
+
+2. Progression & Difficulty
+As a player, I want enemy waves to gradually become more difficult to maintain game challenge.
+
+Each wave increases enemy health or movement speed compared to the previous one.
+The game features at least five enemy types of varying strength (e.g., regular enemies, elite enemies, and bosses).
+A game mechanism controls the gradual difficulty increase, introducing new enemy types at specific waves.
+
+As a player, I want to earn in-game currency by defeating enemies so that I can upgrade turrets.
+
+Players earn a certain amount of gold for each defeated enemy.
+The UI clearly displays the player's current gold and available resources.
+Players can use gold to upgrade turrets, improving their attack power or range.
+
+As a player, I want difficulty settings so that I can adjust the challenge based on my skill level.
+
+The game offers at least three difficulty modes (Easy, Normal, Hard).
+Different difficulty modes affect enemy health, speed, and attack waves.
+Players can select a difficulty before starting a game and adjust it under specific conditions (e.g., when restarting a level).
+
+3. Graphics & UI
+As a player, I want an intuitive UI that clearly displays my resources and turret placements.
+
+The UI displays current gold, remaining lives, and enemy wave information.
+When selecting a turret, valid placement areas are highlighted.
+Resource numbers update in real-time to reflect player actions (e.g., gold decreases after purchasing a turret).
+
+As an artist, I want to design visually distinct enemy types so that players can easily recognize threats.
+
+Each enemy type has a unique appearance or color to distinguish them (e.g., small enemies vs. boss enemies).
+Enemies have different animation effects when moving to enhance visual feedback.
+Enemy types are introduced or labeled before a level begins.
+
+As a UI designer, I want to create a pause menu so that players can restart or change settings.
+
+Players can open the menu via a pause button, which halts the game state.
+The menu includes options such as "Resume Game," "Restart," and "Exit."
+Players can adjust settings like volume and difficulty within the menu.
+
+4. Sound & Feedback
+As a player, I want sound effects when placing turrets and defeating enemies to provide immediate feedback.
+
+A sound effect plays when a turret is successfully placed.
+Defeating enemies triggers a sound effect to enhance the sense of achievement.
+Turrets emit shooting sounds when attacking to improve immersion.
+
+As a sound designer, I want background music to change with enemy waves to enhance immersion.
+
+Early waves play light background music, while higher difficulty waves have intense music.
+Boss levels trigger unique background music to increase tension.
+Players can adjust or disable background music in the settings menu.
+
+As a player, I want visual and sound feedback when upgrading turrets to confirm a successful upgrade.
+
+A sound effect plays upon upgrading a turret, accompanied by a flash or special animation.
+The UI displays the upgraded turret’s new abilities (e.g., increased attack power or range).
+Upgraded turrets change in appearance to allow for easy identification.
+
+These acceptance criteria ensure the game’s completeness in terms of gameplay, progression, visuals, 
+and sound while providing clear standards for the development team to follow.
