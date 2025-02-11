@@ -27,12 +27,13 @@ Add a group photo here!
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
 
-### 3. Requirements 
+### Requirements 
 
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop?
 
-#### 3.1 Stakeholders List  
+#### Stakeholders List  
+
 - **Players**: The main users who play the game.  
 - **Game Designers**: Those who design levels and mechanics.  
 - **Developers**: Programmers implementing the game.  
@@ -42,7 +43,7 @@ Add a group photo here!
 - **Project Managers**: Oversee development progress.  
 - **Marketing Team**: Promote the game to players.  
 - **Investors/Publishers**: Fund the project.  
-- **Community Moderators**: Manage player discussions and feedback.  
+- **Community Moderators**: Manage player discussions and feedback. 
   
 
 ### Design
