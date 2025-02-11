@@ -78,6 +78,12 @@ var waveCool = 120;     // number of ticks between waves
 var weakness = 0.5;     // damage increase from weakness
 
 
+var totalWaves = 2;   // 固定总波数为 2 波
+var gameEnded = false; // 标记本局游戏是否已经结束
+
+var enemySpeedMultiplier = 1;  // 默认1倍速度
+
+
 // Misc functions
 
 // Spawn a group of enemies, alternating if multiple types
@@ -652,10 +658,9 @@ function recalculate() {
     paths = newPaths;
 }
 
-// TODO vary health based on map
 function resetGame() {
     loadMap();
-    // Clear all entities
+    // 清空所有实体
     enemies = [];
     projectiles = [];
     systems = [];
@@ -663,17 +668,18 @@ function resetGame() {
     newEnemies = [];
     newProjectiles = [];
     newTowers = [];
-    // Reset all stats
+    // 重置状态
     health = 40;
     maxHealth = health;
-    wave = 0;
-    // Reset all flags
+    wave = 0;          // 重置波数
+    gameEnded = false; // 重置游戏结束标记
+    // 重置各项标志
     paused = true;
     scd = 0;
     toCooldown = false;
     toPathfind = false;
     toPlace = false;
-    // Start game
+    // 启动第一波（此时 nextWave() 会使 wave 变为 1）
     nextWave();
 }
 
@@ -747,9 +753,10 @@ function updatePause() {
 
 // Update game status display with wave, health, and cash
 function updateStatus() {
-    document.getElementById('wave').innerHTML = 'Wave ' + wave;
-    document.getElementById('health').innerHTML = 'Health: ' +
-    health + '/' + maxHealth;
+    // 如果当前波数超过总波数，则显示总波数（例如在最后一波中显示“2/2”）
+    var displayWave = wave > totalWaves ? totalWaves : wave;
+    document.getElementById('wave').innerHTML = '波数: ' + displayWave + '/' + totalWaves;
+    document.getElementById('health').innerHTML = 'Health: ' + health + '/' + maxHealth;
     document.getElementById('cash').innerHTML = '$' + cash;
 }
 
@@ -1003,10 +1010,16 @@ function draw() {
     if (health <= 0) resetGame();
 
     // Start next wave
-    if (toWait && wcd === 0 || skipToNext && newEnemies.length === 0) {
-        toWait = false;
-        wcd = 0;
-        nextWave();
+    // 检测并等待下一波
+    if ((toWait && wcd === 0) || (skipToNext && newEnemies.length === 0)) {
+        if (wave < totalWaves) {
+            toWait = false;
+            wcd = 0;
+            nextWave();
+        } else {
+            // 已经是最后一波，调用 endLevel() 自动跳转到选关界面
+            endLevel();
+        }
     }
 
     // Wait for next wave
@@ -1162,3 +1175,105 @@ function mousePressed() {
 }
 
 
+function endLevel() {
+    if (!gameEnded) {
+        gameEnded = true;
+        paused = true;
+        // 根据最终 health 更新当前关卡的星级
+        var levelId = document.getElementById("map").value;
+        var newRating = calculateRating(health, maxHealth);
+        var storedRating = parseInt(localStorage.getItem("rating_" + levelId)) || 0;
+        if (newRating > storedRating) {
+            localStorage.setItem("rating_" + levelId, newRating);
+        }
+        // 延时0.5秒后显示选关界面
+        setTimeout(function() {
+            // 清空游戏中的实体（根据需要可进一步清空）
+            enemies = [];
+            projectiles = [];
+            systems = [];
+            towers = [];
+            newEnemies = [];
+            newProjectiles = [];
+            newTowers = [];
+            // 显示选关覆盖层，并重新生成关卡卡片（星级会更新）
+            document.getElementById("level-selection").style.display = "flex";
+            createLevelCards();
+        }, 500); // 延时0.5秒
+    }
+}
+
+// 根据剩余血量（health）与最大血量（maxHealth）计算星级（0~3 星）
+function calculateRating(health, maxHealth) {
+    if (health >= maxHealth * 0.85) return 3;
+    else if (health >= maxHealth * 0.5) return 2;
+    else if (health > 0) return 1;
+    else return 0;
+}
+
+// 在关卡结束时调用，更新当前关卡的星级记录
+function updateLevelRating(levelId, health, maxHealth) {
+    var newRating = calculateRating(health, maxHealth);
+    var storedRating = parseInt(localStorage.getItem("rating_" + levelId)) || 0;
+    if (newRating > storedRating) {
+        localStorage.setItem("rating_" + levelId, newRating);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 找到加速按钮
+    var speedBtn = document.getElementById("speed-enemy-button");
+    
+    // 当鼠标按下（或触控开始）时，设置加速
+    speedBtn.addEventListener("mousedown", function() {
+        enemySpeedMultiplier = 2;
+        speedBtn.innerHTML = "加速中...";
+    });
+    // 为了兼容触控设备，添加 touchstart 事件
+    speedBtn.addEventListener("touchstart", function(e) {
+        enemySpeedMultiplier = 2;
+        speedBtn.innerHTML = "加速中...";
+        // 阻止后续模拟的 mouse 事件
+        e.preventDefault();
+    });
+    
+    // 当鼠标松开、离开按钮区域或触控结束时，恢复正常速度
+    function resetSpeed() {
+        enemySpeedMultiplier = 1;
+        speedBtn.innerHTML = "长按加速";
+    }
+    speedBtn.addEventListener("mouseup", resetSpeed);
+    speedBtn.addEventListener("mouseleave", resetSpeed);
+    speedBtn.addEventListener("touchend", resetSpeed);
+    speedBtn.addEventListener("touchcancel", resetSpeed);
+});
+
+
+function updateEnemyPanel() {
+    var enemyList = document.getElementById("enemy-list");
+    if (!enemyList) return;  // 如果页面中没有该元素，则退出
+    enemyList.innerHTML = ""; // 清空原有内容
+    // 遍历 global enemy 对象中的所有键（每个键对应一种敌人类型）
+    for (var key in enemy) {
+        if (enemy.hasOwnProperty(key)) {
+            // 创建一个新 div 元素作为敌人项
+            var item = document.createElement("div");
+            item.className = "enemy-item";
+            // 创建一个显示颜色的小圆点
+            var colorCircle = document.createElement("span");
+            colorCircle.className = "enemy-color";
+            var col = enemy[key].color;
+            // 如果 color 是数组，则转换为 rgb 字符串
+            if (Array.isArray(col)) {
+                colorCircle.style.backgroundColor = "rgb(" + col.join(",") + ")";
+            } else {
+                colorCircle.style.backgroundColor = col;
+            }
+            // 创建一个文本节点，显示敌人的名称（key）
+            var nameText = document.createTextNode(key);
+            item.appendChild(colorCircle);
+            item.appendChild(nameText);
+            enemyList.appendChild(item);
+        }
+    }
+}

@@ -22,6 +22,7 @@
     <script src="scripts/maps.js" defer></script>
     <script src="scripts/tiles.js" defer></script>
     <script src="scripts/sketch.js" defer></script>
+
   </head>
   <body>
     <header>
@@ -48,17 +49,24 @@
         <!-- 状态面板 -->
         <div id="status-panel">
           <h2>状态</h2>
-          <p id="wave"></p>
-          <p id="health"></p>
-          <p id="cash"></p>
-          <!-- 这里原来是关卡下拉框，现改为放弃按钮 -->
-          <p>
-            <button id="exit-game-button">放弃并退出到选关界面</button>
-          </p>
-          <div class="button-group">
+          <!-- 添加 status-text-large 类，后续在 CSS 中定义较大的字号 -->
+          <p id="wave" class="status-text-large"></p>
+          <p id="health" class="status-text-large"></p>
+          <p id="cash" class="status-text-large"></p>
+          
+          <!-- 新增一个四宫格按钮容器 -->
+          <div class="button-grid">
             <button id="pause" onclick="pause()">暂停/开始</button>
             <button onclick="resetGame()">重置游戏</button>
+            <button id="exit-game-button">放弃并退出到选关界面</button>
+            <button id="speed-enemy-button">长按加速</button>
           </div>
+        </div>
+
+        <!-- 新增敌人栏 -->
+        <div id="enemy-panel">
+          <h2>敌人栏</h2>
+          <div id="enemy-list"></div>
         </div>
         
         <!-- 商店面板 -->
@@ -149,6 +157,8 @@
       document.addEventListener("DOMContentLoaded", function() {
         // 生成选关卡片，让用户自行选择关卡
         createLevelCards();
+        // 调用更新敌人栏的函数
+        updateEnemyPanel();
         // 不自动启动游戏，显示选关界面
         document.getElementById("level-selection").style.display = "flex";
         

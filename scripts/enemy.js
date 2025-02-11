@@ -115,7 +115,7 @@ class Enemy {
     // Return speed in pixels per tick
     // Adjusted to not be affected by zoom level
     pxSpeed() {
-        return this.speed * ts / 24;
+        return this.speed * ts / 24 * enemySpeedMultiplier;
     }
 
     // Change direction based on pathfinding map
@@ -144,7 +144,7 @@ class Enemy {
         }
         
         // Movement
-        this.vel.limit(96 / ts);
+        // this.vel.limit(96 / ts);
         this.vel.limit(this.pxSpeed());
         this.pos.add(this.vel);
     }
