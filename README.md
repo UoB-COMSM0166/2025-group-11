@@ -16,7 +16,7 @@ Add a group photo here!
 - Group member 1, yangyang, df24465@bristol.ac.uk, role
 - Group member 2, XingYang, zj24404@bristol.ac.uk, role
 - Group member 3, Yiqing Zhou, lr24125@bristol.ac.uk, role
-- Group member 4, name, email, role
+- Group member 4, Siyuan Chen, gd23774@bristol.ac.uk, role
 - Group member 5, name, email, role
 - Group member 5, name, email, role
 
@@ -30,7 +30,20 @@ Add a group photo here!
 ### Requirements 
 
 - 15% ~750 words
-- Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
+- Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop?
+
+1. Identify Stakeholders
+Players: The main users who play the game.
+Game Designers: Those who design levels and mechanics.
+Developers: Programmers implementing the game.
+QA Testers: People testing for bugs and balance.
+Artists: Designers of game assets (characters, towers, environment).
+Sound Designers: Those who create sound effects and music.
+Project Managers: Oversee development progress.
+Marketing Team: Promote the game to players.
+Investors/Publishers: Fund the project.
+Community Moderators: Manage player discussions and feedback.
+  
 
 ### Design
 
