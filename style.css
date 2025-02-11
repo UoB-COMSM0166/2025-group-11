@@ -1,0 +1,222 @@
+/* 新的 style.css */
+
+/* 全局重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 基本页面样式 */
+  body {
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+  }
+  
+  /* 头部 */
+  header {
+    background-color: #0f3460;
+    padding: 15px;
+    text-align: center;
+    color: #ffffff;
+  }
+  
+  /* 主容器，分为游戏区域和侧边栏 */
+  .main-container {
+    display: flex;
+    height: calc(100vh - 70px); /* 扣除头部高度 */
+  }
+  
+  /* 游戏区域 */
+  #game-area {
+    flex: 3;
+    background-color: #000000;
+    position: relative;
+  }
+  
+  #sketch-holder {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 侧边栏 */
+  #sidebar {
+    flex: 1;
+    background-color: #16222a;
+    padding: 15px;
+    overflow-y: auto;
+  }
+  
+  /* 侧边栏内各面板 */
+  #status-panel, #store-panel, #info-panel {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 2px solid #0f3460;
+    border-radius: 8px;
+    background-color: #0f3460;
+  }
+  
+  /* 面板标题 */
+  #status-panel h2,
+  #store-panel h2,
+  #info-panel h2 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    text-align: center;
+  }
+  
+  /* 状态面板文本 */
+  #status-panel p {
+    margin: 5px 0;
+  }
+  
+  /* 按钮组 */
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .button-group button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e94560;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+  }
+  
+  .button-group button:hover {
+    background-color: #d73b55;
+  }
+  
+  /* 商店内各塔按钮 */
+  .gun { background-color: #f39c12; }
+  .laser { background-color: #3498db; }
+  .slow { background-color: #9b59b6; }
+  .sniper { background-color: #e74c3c; }
+  .rocket { background-color: #27ae60; }
+  .bomb { background-color: #8e44ad; }
+  .tesla { background-color: #f1c40f; }
+  
+  #store-panel button:hover {
+    opacity: 0.9;
+  }
+  
+  /* 初始选关覆盖层 */
+  #level-selection {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 46, 0.95);
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+  
+  #level-selection h2 {
+    margin-bottom: 15px;
+    font-size: 2em;
+  }
+  
+  #level-selection select,
+  #level-selection button {
+    font-size: 1em;
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  #level-selection button {
+    background-color: #e94560;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  #level-selection button:hover {
+    background-color: #d73b55;
+  }
+  
+  /* 侧边栏滚动条 */
+  #sidebar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #sidebar::-webkit-scrollbar-track {
+    background: #0f3460;
+  }
+  
+  #sidebar::-webkit-scrollbar-thumb {
+    background: #e94560;
+    border-radius: 4px;
+  }
+  
+
+  /* 选关覆盖层（初始隐藏） */
+#level-selection {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 46, 0.95);
+  color: #e0e0e0;
+  display: none; /* 默认隐藏，自动启动游戏后不显示 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#level-selection h2 {
+  margin-bottom: 15px;
+  font-size: 2em;
+}
+
+/* 容纳关卡卡片的容器 */
+#level-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  width: 80%;
+  max-width: 800px;
+}
+
+/* 单个关卡卡片样式 */
+.level-card {
+  background-color: #0f3460;
+  border: 2px solid #e94560;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.level-card:hover {
+  background-color: #d73b55;
+  transform: scale(1.05);
+}
+
+.level-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.level-card .stars {
+  font-size: 1.5em;
+  color: #f1c40f;
+}

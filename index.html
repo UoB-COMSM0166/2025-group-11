@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Amelia Clarke">
+    <title>Tower Defense</title>
+    <link href="style.css" rel="stylesheet">
+    <!-- 脚本依次加载 -->
+    <script src="scripts/lib/lz-string.min.js" defer></script>
+    <script src="scripts/lib/p5.min.js" defer></script>
+    <script src="scripts/lib/p5.sound.min.js" defer></script>
+    <script src="scripts/utils.js" defer></script>
+    <script src="scripts/enemy.js" defer></script>
+    <script src="scripts/enemies.js" defer></script>
+    <script src="scripts/particle.js" defer></script>
+    <script src="scripts/particle_system.js" defer></script>
+    <script src="scripts/effect.js" defer></script>
+    <script src="scripts/effects.js" defer></script>
+    <script src="scripts/tower.js" defer></script>
+    <script src="scripts/towers.js" defer></script>
+    <script src="scripts/missile.js" defer></script>
+    <script src="scripts/maps.js" defer></script>
+    <script src="scripts/tiles.js" defer></script>
+    <script src="scripts/sketch.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Tower Defense</h1>
+    </header>
+    
+    <!-- 选关覆盖层（初始时隐藏，只有当用户点击“放弃并退出到选关界面”时显示） -->
+    <div id="level-selection">
+      <h2>选择关卡</h2>
+      <div id="level-cards-container">
+        <!-- 关卡卡片由脚本动态生成 -->
+      </div>
+    </div>
+    
+    <!-- 主容器：左侧游戏区域 + 右侧侧边栏 -->
+    <div class="main-container">
+      <!-- 游戏区域：画布容器 -->
+      <div id="game-area">
+        <div id="sketch-holder"></div>
+      </div>
+      
+      <!-- 侧边栏：包含状态、商店、塔信息 -->
+      <div id="sidebar">
+        <!-- 状态面板 -->
+        <div id="status-panel">
+          <h2>状态</h2>
+          <p id="wave"></p>
+          <p id="health"></p>
+          <p id="cash"></p>
+          <!-- 这里原来是关卡下拉框，现改为放弃按钮 -->
+          <p>
+            <button id="exit-game-button">放弃并退出到选关界面</button>
+          </p>
+          <div class="button-group">
+            <button id="pause" onclick="pause()">暂停/开始</button>
+            <button onclick="resetGame()">重置游戏</button>
+          </div>
+        </div>
+        
+        <!-- 商店面板 -->
+        <div id="store-panel">
+          <h2>商店</h2>
+          <div class="button-group">
+            <button class="gun" onclick="setPlace('gun')">Gun Tower (1)</button>
+            <button class="laser" onclick="setPlace('laser')">Laser Tower (2)</button>
+            <button class="slow" onclick="setPlace('slow')">Slow Tower (3)</button>
+            <button class="sniper" onclick="setPlace('sniper')">Sniper Tower (4)</button>
+            <button class="rocket" onclick="setPlace('rocket')">Rocket Tower (5)</button>
+            <button class="bomb" onclick="setPlace('bomb')">Bomb Tower (6)</button>
+            <button class="tesla" onclick="setPlace('tesla')">Tesla Coil (7)</button>
+          </div>
+        </div>
+        
+        <!-- 塔信息面板 -->
+        <div id="info-panel">
+          <h2>塔信息</h2>
+          <div id="info-div">
+            <p id="name"></p>
+            <p id="cost"></p>
+            <p id="sellPrice"></p>
+            <p id="upPrice"></p>
+            <p id="damage"></p>
+            <p id="type"></p>
+            <p id="range"></p>
+            <p id="cooldown"></p>
+            <div class="button-group" id="info-buttons">
+              <button id="sell" onclick="if (selected) sell(selected)">Sell</button>
+              <button id="upgrade" onclick="if (selected && selected.upgrades.length > 0) upgrade(selected.upgrades[0])">Upgrade</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 一个隐藏的 input 用来保存当前关卡值 -->
+    <input type="hidden" id="map" value="loops">
+    
+    <!-- 新的选关界面及自动启动相关脚本 -->
+    <script>
+      // 定义可选关卡（这里使用之前下拉框中的 4 个选项，可根据需要调整）
+      const levels = [
+        { id: "loops", name: "Loops" },
+        { id: "spiral", name: "Spiral" },
+        { id: "branchAlt", name: "Branch (Alt)" },
+        { id: "freeway", name: "Freeway" }
+      ];
+      
+      // 从 localStorage 取出关卡星级（假设 key 为 "rating_关卡ID"，值为 0~3）
+      function getRating(levelId) {
+        const rating = localStorage.getItem("rating_" + levelId);
+        return rating ? parseInt(rating) : 0;
+      }
+      
+      // 根据评分生成星星 HTML（用 ★ 表示满星，用 ☆ 表示空星）
+      function getStarHTML(rating) {
+        let stars = "";
+        for (let i = 0; i < 3; i++) {
+          stars += i < rating ? "&#9733;" : "&#9734;";
+        }
+        return stars;
+      }
+      
+      // 根据 levels 数组生成选关卡片
+      function createLevelCards() {
+        const container = document.getElementById("level-cards-container");
+        container.innerHTML = ""; // 清空容器
+        levels.forEach(level => {
+          const card = document.createElement("div");
+          card.className = "level-card";
+          card.dataset.levelId = level.id;
+          card.innerHTML = `<h3>${level.name}</h3>
+                            <div class="stars">${getStarHTML(getRating(level.id))}</div>`;
+          // 点击卡片时设置关卡并启动游戏
+          card.addEventListener("click", function() {
+            document.getElementById("map").value = level.id;
+            document.getElementById("level-selection").style.display = "none";
+            resetGame();
+            paused = false;
+          });
+          container.appendChild(card);
+        });
+      }
+      
+      // 页面加载完毕后自动启动游戏，并绑定“放弃退出”按钮事件
+      document.addEventListener("DOMContentLoaded", function() {
+        // 生成选关卡片，让用户自行选择关卡
+        createLevelCards();
+        // 不自动启动游戏，显示选关界面
+        document.getElementById("level-selection").style.display = "flex";
+        
+        // 放弃退出按钮的事件绑定依然有效
+        var exitButton = document.getElementById("exit-game-button");
+        exitButton.addEventListener("click", function() {
+          paused = true;
+          enemies = [];
+          projectiles = [];
+          systems = [];
+          towers = [];
+          newEnemies = [];
+          newProjectiles = [];
+          newTowers = [];
+          document.getElementById("level-selection").style.display = "flex";
+          createLevelCards();
+        });
+      });
+    </script>
+  </body>
+</html>
