@@ -32,17 +32,17 @@ Add a group photo here!
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop?
 
-#### 1.Stakeholders list  
-Players: The main users who play the game.  
-Game Designers: Those who design levels and mechanics.  
-Developers: Programmers implementing the game.  
-QA Testers: People testing for bugs and balance.  
-Artists: Designers of game assets (characters, towers, environment).  
-Sound Designers: Those who create sound effects and music.  
-Project Managers: Oversee development progress.  
-Marketing Team: Promote the game to players.  
-Investors/Publishers: Fund the project.  
-Community Moderators: Manage player discussions and feedback.  
+#### 1. Stakeholders List  
+- **Players**: The main users who play the game.  
+- **Game Designers**: Those who design levels and mechanics.  
+- **Developers**: Programmers implementing the game.  
+- **QA Testers**: People testing for bugs and balance.  
+- **Artists**: Designers of game assets (characters, towers, environment).  
+- **Sound Designers**: Those who create sound effects and music.  
+- **Project Managers**: Oversee development progress.  
+- **Marketing Team**: Promote the game to players.  
+- **Investors/Publishers**: Fund the project.  
+- **Community Moderators**: Manage player discussions and feedback.  
   
 
 ### Design
