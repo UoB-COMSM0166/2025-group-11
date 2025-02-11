@@ -32,7 +32,7 @@ Add a group photo here!
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop?
 
-1. Identify Stakeholders
+1.Stakeholders list
 Players: The main users who play the game.
 Game Designers: Those who design levels and mechanics.
 Developers: Programmers implementing the game.
