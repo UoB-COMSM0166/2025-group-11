@@ -17,7 +17,7 @@ Add a group photo here!
 - Group member 2, XingYang, zj24404@bristol.ac.uk, role
 - Group member 3, Yiqing Zhou, lr24125@bristol.ac.uk, role
 - Group member 4, Siyuan Chen, gd23774@bristol.ac.uk, role
-- Group member 5, name, email, role
+- Group member 5, Cheng Wang, fd24967@bristol.ac.uk, role
 - Group member 5, name, email, role
 
 ## Project Report
